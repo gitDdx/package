@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_488895_3kw0l4fr1wvlhaor.css">
+  <link rel="stylesheet" href="/static/css/reset.css">
+  <link rel="stylesheet" href="/static/css/flex.css">
+  <link rel="stylesheet" href="/static/css/pacman.css">
+  <script src="/static/js/fiexible.js"></script>
+  <title>vue-demo</title>
+  <style>
+    main {
+      /*background: #F4783D;*/
+      /*background: #35495e;*/
+      background: #41b883;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+    }
+
+    main.loaded {
+      transition: opacity .25s linear;
+      opacity: 1;
+    }
+
+    main header {
+      width: 100%;
+    }
+
+    main header > div {
+      width: 50%;
+    }
+
+    main header > .left,
+    main header > .right {
+      height: 100%;
+    }
+
+    main .loaders {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex: 0 1 auto;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    main .loaders .loader {
+      box-sizing: border-box;
+      display: flex;
+      flex: 0 1 auto;
+      flex-direction: column;
+      flex-grow: 1;
+      flex-shrink: 0;
+      flex-basis: 25%;
+      height: 90%;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tip-loading {
+      font-size: 16px;
+      color: #ffffff;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<main id="loading" class="loaded">
+  <div class="loaders">
+    <div class="loader">
+      <div class="loader-inner pacman">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="tip-loading">加载中……</div>
+    </div>
+  </div>
+</main>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
+<script>
+  window.onload = function () {
+    document.getElementById('loading').style.display = 'none'
+  }
+</script>
+</html>
