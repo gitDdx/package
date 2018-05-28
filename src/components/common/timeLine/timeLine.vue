@@ -2,7 +2,7 @@
   <div class="timeLine">
     <div class="timeLine-wrapper">
       <div class="main-wrapper">
-        <h1 class="title">微俱聚更新日志</h1>
+        <h1 class="title">{{title}}</h1>
         <div class="year-wrapper" v-for="(item, index) in dataList" :key="index">
           <h2><a href="#">{{item.title}}<i @click="toggle(index)"></i></a></h2>
           <div class="list" v-show="activeIndex===index">
@@ -25,24 +25,30 @@
 <script>
 export default {
   name: 'timeLine',
-  // props: {
-  //   title: {
-  //     type: String,
-  //     default: () => {
-  //       return {}
-  //     }
-  //   }
-  // },
-  mounted: {
-  },
   data () {
     return {
       activeIndex: 0,
-      dataList: [
-        {title: '2014年', children: [{date: '3月5日', intro: '360全景隆重上线', more: '全新360全景模块上线，3D看房、3D看车、3D看实景，一网打尽'}, {date: '2月26日', intro: '微婚庆行业应用上线', more: '提供更加友好的套餐价格'}]},
-        {title: '2015年', children: [{date: '1月', intro: '上线', more: '一网打尽'}, {date: '2月', intro: '微婚庆行上线', more: '提供更加友餐价格'}]}
-      ]
+      dataList: []
     }
+  },
+  props: {
+    data: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
+    title: {
+      type: String,
+      default: () => {
+        return {}
+      }
+    }
+  },
+  created () {
+    this.dataList = this.data
+  },
+  mounted: {
   },
   methods: {
     toggle (index) {

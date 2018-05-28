@@ -22,7 +22,7 @@
     </el-row>
     <el-row>
       <el-col>
-        <time-line></time-line>
+        <time-line :data="dataList" :title='title'></time-line>
       </el-col>
     </el-row>
   </div>
@@ -49,6 +49,11 @@ export default {
       message: {},
       currentDate: new Date(),
       area: ['350px', '350px'],
+      title: '测试',
+      dataList: [
+        {title: '2014年', children: [{date: '3月5日', intro: '360全景隆重上线', more: '全新360全景模块上线，3D看房、3D看车、3D看实景，一网打尽'}, {date: '2月26日', intro: '微婚庆行业应用上线', more: '提供更加友好的套餐价格'}]},
+        {title: '2015年', children: [{date: '1月', intro: '上线', more: '一网打尽'}, {date: '2月', intro: '微婚庆行上线', more: '提供更加友餐价格'}]}
+      ],
       options: {
         title: {
           text: 'ECharts 入门示例'
