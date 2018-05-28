@@ -1,24 +1,31 @@
 <template>
-  <el-row>
-    <el-col :span="12" v-for="o in 2" :key="o">
-      <el-card :body-style="{ padding: '0px' }">
-        <img src="../assets/logo.png" class="image">
-        <div style="padding: 14px;">
-          <span>好吃的汉堡</span>
-          <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button" @click="goDetail">跳转</el-button>
-            <el-button type="text" class="button" @click="alert">弹出层</el-button>
-          </div>
-        </div>
-      </el-card>
-    </el-col>
+  <div>
     <el-row>
-      <el-col>
-        <e-charts id="main" :options='options' class="echarts" :style="{width: area[0], height: area[1]}"></e-charts>
+      <el-col :span="12" v-for="o in 2" :key="o">
+        <el-card :body-style="{ padding: '0px' }">
+          <img src="../assets/logo.png" class="image">
+          <div style="padding: 14px;">
+            <span>好吃的汉堡</span>
+            <div class="bottom clearfix">
+              <time class="time">{{ currentDate }}</time>
+              <el-button type="text" class="button" @click="goDetail">跳转</el-button>
+              <el-button type="text" class="button" @click="alert">弹出层</el-button>
+            </div>
+          </div>
+        </el-card>
       </el-col>
     </el-row>
-  </el-row>
+    <el-row>
+      <el-col>
+      <e-charts id="main" :options='options' class="echarts" :style="{width: area[0], height: area[1]}"></e-charts>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        <time-line></time-line>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -29,12 +36,13 @@ import 'echarts/lib/chart/bar'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/legend'
 import { color } from '../utils/echartsColor'
+import timeLine from './common/timeLine/timeLine.vue'
 // import {getAdmin} from '../api/index'
 
 export default {
   name: 'index',
   components: {
-    ECharts
+    ECharts, timeLine
   },
   data () {
     return {
@@ -97,4 +105,4 @@ export default {
 }
 </script>
 <style scoped>
-</style>
+ </style>
