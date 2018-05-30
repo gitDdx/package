@@ -25,6 +25,11 @@
         <time-line :data="dataList" :title='title'></time-line>
       </el-col>
     </el-row>
+    <!--<el-row>-->
+      <!--<el-col>-->
+        <!--<div id="editor" type="text/plain" style="width:100%;height:400px;"></div>-->
+      <!--</el-col>-->
+    <!--</el-row>-->
   </div>
 </template>
 
@@ -46,6 +51,7 @@ export default {
   },
   data () {
     return {
+      editor: null,
       message: {},
       currentDate: new Date(),
       area: ['350px', '350px'],
