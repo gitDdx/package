@@ -7,11 +7,15 @@ export default {
   },
   mutations: {
     // 显示更改states里的数据
-    mutationName (state) { state.count = 100 }
+    increment (state) {
+      state.count++
+    }
   },
   getters: {
     // 获取数据的方法
-    strLength: state => state.aString.length
+    countAdd: function (state) {
+      return state.count++
+    }
   },
   actions: {
     // mutations的加强版，可异步操作
@@ -21,9 +25,6 @@ export default {
         params: typeof id === 'object' ? id : {id},
         query
       })
-    },
-    mutationName ({ commit }) {
-      commit('mutationName')
     }
   }
 }

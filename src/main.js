@@ -8,9 +8,9 @@ import 'cube-ui/lib/style.css'
 import Cube from 'cube-ui'
 import VueCookie from 'vue-cookie'
 // 引入element
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-Vue.use(ElementUI)
+// import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
+// Vue.use(ElementUI)
 Vue.use(store)
 Vue.use(Cube)
 Vue.use(VueCookie)
