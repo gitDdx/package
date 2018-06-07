@@ -6,14 +6,10 @@ import router from './router'
 import store from './store'
 import 'cube-ui/lib/style.css'
 import Cube from 'cube-ui'
-import VueCookie from 'vue-cookie'
-// 引入element
-// import ElementUI from 'element-ui'
-// import 'element-ui/lib/theme-chalk/index.css'
-// Vue.use(ElementUI)
+// import VueCookie from 'vue-cookie'
 Vue.use(store)
 Vue.use(Cube)
-Vue.use(VueCookie)
+// Vue.use(VueCookie)
 
 // 使用mock数据
 // import Mock from './mock'
