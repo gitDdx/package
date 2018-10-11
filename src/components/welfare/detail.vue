@@ -5,7 +5,7 @@
         <input type="text" class="searchKey" placeholder="请输入关键字搜索">
         <span class="search_icon"><img src="../common/images/搜索.png" alt=""></span>
       </div>
-      <p class="cancel">取消</p>
+      <p class="cancel">取消222</p>
     </div>
     <div class="scrollCont" style="height:84vh;">
       <cube-scroll
@@ -25,7 +25,7 @@
         <!--列表-->
         <div class="scrollList">
           <div class="list">
-            <a class="list_top" @click="$router.push(`/welfare/details`)">
+            <a class="list_top" @click="$router.push(``)">
               <div class="list_img">
                 <img src="./images/火锅图.png">
               </div>
@@ -97,17 +97,7 @@ export default {
   },
   created () {},
   mounted () {},
-  method: {
-    onPullingUp () {
-      // 上拉加载
-      if (this.page.page > this.page.pages) {
-        setTimeout(() => {
-          this.$refs.scroll.forceUpdate()
-        }, 1000)
-        return false
-      }
-      // this.getData()
-    }
+  method () {
   }
 }
 </script>

@@ -17,7 +17,14 @@ export default new Router({
           path: '/welfare',
           name: 'welfare',
           component: () => import('@/components/welfare/index'),
-          children: []
+          children: [
+            { // 福利详情
+              path: '/details',
+              name: 'details',
+              component: () => import('@/components/welfare/detail'),
+              children: []
+            }
+          ]
         },
         { // 商家
           path: '/business',
