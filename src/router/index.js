@@ -16,11 +16,17 @@ export default new Router({
         { // 福利
           path: '/welfare',
           name: 'welfare',
+          meta: {
+            title: '福利'
+          },
           component: () => import('@/components/welfare/index'),
           children: [
             { // 福利详情
-              path: '/details',
+              path: 'details/:id',
               name: 'details',
+              meta: {
+                title: '福利详情'
+              },
               component: () => import('@/components/welfare/detail'),
               children: []
             }
@@ -29,12 +35,18 @@ export default new Router({
         { // 商家
           path: '/business',
           name: 'business',
+          meta: {
+            title: '商家'
+          },
           component: () => import('@/components/business/index'),
           children: []
         },
         { // 我的
           path: '/my',
           name: 'my',
+          meta: {
+            title: '我的'
+          },
           component: () => import('@/components/my/index'),
           children: []
         }

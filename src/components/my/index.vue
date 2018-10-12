@@ -69,26 +69,26 @@
   </div>
 </template>
 <script>
-  export default {
-    components: {},
-    data () {
-      return {
-        allLists: [],
-        options: {
-          pullUpLoad: {
-            threshold: 0,
-            txt: {
-              more: '加载更多',
-              noMore: '没有更多数据了'
-            }
+export default {
+  components: {},
+  data () {
+    return {
+      allLists: [],
+      options: {
+        pullUpLoad: {
+          threshold: 0,
+          txt: {
+            more: '加载更多',
+            noMore: '没有更多数据了'
           }
         }
       }
-    },
-    created () {},
-    mounted () {},
-    method () {}
-  }
+    }
+  },
+  created () {},
+  mounted () {},
+  method: {}
+}
 </script>
 <style lang="less" scoped>
   @import "../../common/less/base.less";

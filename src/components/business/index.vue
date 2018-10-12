@@ -13,8 +13,8 @@
         <div class="clear-fix">
           <cube-upload-file v-for="(file, i) in files" :file="file" :key="i"></cube-upload-file>
           <cube-upload-btn :multiple="false">
-            <div>
-              <img src="./images/upload_icon.png" alt="上传">
+            <div v-show="uploadIcon">
+              <img class="upload_icon" src="./images/upload_icon.png" alt="上传">
               <p>点击上传营业执照</p>
             </div>
           </cube-upload-btn>
@@ -26,28 +26,30 @@
   </div>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        action: '//jsonplaceholder.typicode.com/photos/',
-        files: []
-      }
+export default {
+  data () {
+    return {
+      uploadIcon: true,
+      action: '//jsonplaceholder.typicode.com/photos/',
+      files: []
+    }
+  },
+  methods: {
+    addedHandler() {
+      // this.uploadIcon = false
+      const file = this.files[0]
+      file && this.$refs.upload.removeFile(file)
     },
-    methods: {
-      addedHandler() {
-        const file = this.files[0]
-        file && this.$refs.upload.removeFile(file)
-      },
-      errHandler(file) {
-        // const msg = file.response.message
-        this.$createToast({
-          type: '提示',
-          txt: '上传失败',
-          time: 1000
-        }).show()
-      }
+    errHandler(file) {
+      // const msg = file.response.message
+      this.$createToast({
+        type: '提示',
+        txt: '上传失败',
+        time: 1000
+      }).show()
     }
   }
+}
 </script>
 <style lang="less" scoped>
 @import "../../common/less/base.less";
@@ -113,7 +115,7 @@
       width:100%;
       height:100%;
       div{
-        img{
+        .upload_icon{
           width:@80px;
           height:@80px;
           margin-bottom: @30px;
@@ -122,4 +124,6 @@
     }
   }
 }
+/deep/ .cube-upload-file{width:100%;height:100%;}
+/deep/ .cube-upload-file-def{width:100%;height:100%;}
 </style>

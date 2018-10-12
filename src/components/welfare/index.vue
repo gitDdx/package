@@ -1,68 +1,78 @@
 <template>
   <div>
-    <div class="search-oc" flex items="center" justify="between">
-      <div class="search" box="1">
-        <input type="text" class="searchKey" placeholder="请输入关键字搜索">
-        <span class="search_icon"><img src="../common/images/搜索.png" alt=""></span>
-      </div>
-      <p class="cancel">取消</p>
-    </div>
-    <div class="scrollCont" style="height:84vh;">
-      <cube-scroll
-        :data="allLists"
-        ref="scroll"
-        :options="options"
-        @pulling-up="onPullingUp">
-        <!-- 轮播图 -->
-        <div class="banner">
-          <swiper class="adver-swiper" :options="swiperOption" ref="mySwiper">
-            <swiper-slide v-for="item in list" :key="item.name">
-              <img :src="item.url"/>
-            </swiper-slide>
-            <div class="swiper-pagination" slot="pagination"></div>
-          </swiper>
+    <div class="welfare">
+      <div class="search-oc" flex items="center" justify="between">
+        <div class="search" box="1">
+          <input type="text" class="searchKey" placeholder="请输入关键字搜索">
+          <span class="search_icon"><img src="../common/images/搜索.png" alt=""></span>
         </div>
-        <!--列表-->
-        <div class="scrollList">
-          <div class="list">
-            <a class="list_top" @click="$router.push(`/welfare/details`)">
-              <div class="list_img">
-                <img src="./images/火锅图.png">
-              </div>
-              <div class="list_cont">
-                <h3>春熙路小龙坎火锅</h3>
-                <p class="describe">50元限量抢购小龙坎特色火锅－288元套餐一份</p>
-                <div flex>
-                  <p box="1">
-                    <span class="number">500积分</span>
-                    <span class="number">+</span>
-                    <span class="number">500元</span>
-                    <span class="oldPrice">￥699.00</span>
-                  </p>
-                  <p class="rushBuy">抢购中</p>
+        <p class="cancel">取消</p>
+      </div>
+      <div class="scrollCont" style="height:84vh;">
+        <cube-scroll
+          :data="allLists"
+          ref="scroll"
+          :options="options"
+          @pulling-down="onPullingDown"
+          @pulling-up="onPullingUp">
+          <!-- 轮播图 -->
+          <div class="banner">
+            <swiper class="adver-swiper" :options="swiperOption" ref="mySwiper">
+              <swiper-slide v-for="item in list" :key="item.name">
+                <img :src="item.url"/>
+              </swiper-slide>
+              <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
+          </div>
+          <!--列表-->
+          <div class="scrollList">
+            <div class="list">
+              <div class="list_top" @click="$router.push(`/welfare/details/1`)">
+                <div class="list_img">
+                  <img src="./images/火锅图.png">
+                </div>
+                <div class="list_cont">
+                  <h3>春熙路小龙坎火锅</h3>
+                  <p class="describe">50元限量抢购小龙坎特色火锅－288元套餐一份</p>
+                  <div flex>
+                    <p box="1">
+                      <span class="number">500积分</span>
+                      <span class="number">+</span>
+                      <span class="number">500元</span>
+                      <span class="oldPrice">￥699.00</span>
+                    </p>
+                    <p class="rushBuy">抢购中</p>
+                  </div>
                 </div>
               </div>
-            </a>
-            <div class="list_bot">
-              <span>使用权限：认证用户可抢购</span>
-              <span>剩16天01时08分22秒结束</span>
+              <div class="list_bot">
+                <span>使用权限：认证用户可抢购</span>
+                <span>剩16天01时08分22秒结束</span>
+              </div>
             </div>
           </div>
-        </div>
-      </cube-scroll>
+        </cube-scroll>
+      </div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 <script>
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import { Style, Scroll } from 'cube-ui'
+import { defData } from '../../constant/index'
+import { getListApi } from '../../api/welfare/index'
 export default {
   components: {
     swiper,
-    swiperSlide
+    swiperSlide,
+    Style,
+    Scroll
   },
   data () {
     return {
+      page: {...defData.page},
       list: [
         {name: '1', url: 'http://java.ichuangye.cn/ueditor-upload/upload/image/20180914/3c42627aea554bd58d08c18e043bf94d.jpg'},
         {name: '2', url: 'http://java.ichuangye.cn/ueditor-upload/upload/image/20180914/3c42627aea554bd58d08c18e043bf94d.jpg'},
@@ -84,29 +94,53 @@ export default {
         }
       },
       options: {
+        pullDownRefresh: {
+          threshold: 90,
+          stop: 40,
+          txt: '刷新成功'
+        },
         pullUpLoad: {
           threshold: 0,
           txt: {
-            more: '加载更多',
-            noMore: '没有更多数据了'
+            more: '上拉加载更多...',
+            noMore: '没有更多数据...'
           }
         }
       },
-      allLists: []
+      allLists: [],
     }
   },
-  created () {},
+  created () {
+    this.getData()
+  },
   mounted () {},
-  method: {
-    onPullingUp () {
-      // 上拉加载
+  methods: {
+    // 获取数据
+    getData () {
+      getListApi(this.page).then((data) => {
+        this.allLists = [...this.allLists, ...data]
+        this.page = {...data, page: this.page.page + 1}
+      })
+    },
+    // 下拉刷新
+    onPullingDown: function(){
+      // if (this.page.page < this.page.pages) {
+      //   setTimeout(() => {
+      //     this.$refs.scroll.forceUpdate()
+      //   }, 1000)
+      //   return false
+      // }
+      // this.getData()
+    },
+    // 上拉加载
+    onPullingUp: function() {
       if (this.page.page > this.page.pages) {
         setTimeout(() => {
           this.$refs.scroll.forceUpdate()
         }, 1000)
         return false
       }
-      // this.getData()
+      this.getData()
     }
   }
 }

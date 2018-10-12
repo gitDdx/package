@@ -1,51 +1,11 @@
 @import "base";
-.pos{ position: fixed; left: 0; top: 0; right: 0; bottom: 0;
-  z-index: 1;background-color: #efefef;
+.pos{
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height:100%;
+  z-index:1;  // z-index >= 999 不显示底部菜单
+  background-color: #fff;
 }
-//文字自动换行
-.auto_line{
-  display: block;
-  word-break: break-all;
-  word-wrap: break-word;
-}
-// 省略号
-.ellipsis-mixin() {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.clearfix{
-  clear:both;
-}
-.fl{float: left;}
-.fr{float: right;}
-// 颜色定义规范
-@color-background: #fff;
-@color-background-d: #EEEEEE;
-@color-highlight-background: #333;
-@color-dialog-background: #666;
-@color-theme: #F2BD57;
-@color-theme-d: rgba(255, 205, 49, 0.5);
-@color-sub-theme: #d93f30;
-
-@color-tag: #fff;
-@color-title: #050505;
-@color-title-p: #2f2d2d;
-@color-title-sub: #b2afb4;
-@color-text-l: rgba(255, 255, 255, 0.5);
-@color-text-ll: rgba(255, 255, 255, 0.8);
-
-@color-start: #3BCF9D;
-@color-entering: #FF9C54;
-@color-ising: #FB3A55;
-@color-end: #B2B0B5;
-
-@color-line: #e6e6e6;
-@color-line-item: #F4F4F4;
-@color-btn: #dedede;
-@color-head: #FC4E6B;
-
-@color-btn-blue: #4BB5FF;
-@color-btn-red: #f95674;
-@color-btn-gray: #B2AFB4;
-
