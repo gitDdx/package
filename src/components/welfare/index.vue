@@ -24,6 +24,19 @@
               <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
           </div>
+          <!-- 公告 -->
+          <div class="bar-notice">
+            <img class="icon-notice" src="./images/公告.png"/>
+            <div v-fb class="wrapper-value">
+              <div class="value">
+                <p v-for="item of noticeList">{{item.name}}</p>
+              </div>
+            </div>
+            <div v-fb class="icon-more">
+              <i class="line"></i>
+              <img src="./images/更多公告.png"/>
+            </div>
+          </div>
           <!--列表-->
           <div class="scrollList">
             <div class="list">
@@ -73,6 +86,12 @@ export default {
   data () {
     return {
       page: {...defData.page},
+      noticeList: [
+        {id: 1, name: '哈哈哈哈'},
+        {id: 2, name: '嘿嘿嘿嘿'},
+        {id: 3, name: '嘻嘻嘻嘻'},
+        {id: 4, name: '呵呵呵呵'}
+      ],
       list: [
         {name: '1', url: 'http://java.ichuangye.cn/ueditor-upload/upload/image/20180914/3c42627aea554bd58d08c18e043bf94d.jpg'},
         {name: '2', url: 'http://java.ichuangye.cn/ueditor-upload/upload/image/20180914/3c42627aea554bd58d08c18e043bf94d.jpg'},
@@ -107,7 +126,7 @@ export default {
           }
         }
       },
-      allLists: [],
+      allLists: []
     }
   },
   created () {
@@ -293,5 +312,73 @@ export default {
         }
       }
     }
+  }
+   /*公告*/
+  .bar-notice {
+    box-sizing: border-box;
+    padding-bottom: @30px;
+    padding-top: @30px;
+    border-bottom: 1px dashed #eeeeee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .icon-notice {
+      width: @28px;
+      height: @23px;
+      margin-right: @27px;
+    }
+    .wrapper-value {
+      width: calc(~"100% - " @125px);
+      font-size: @28px;
+      color: #2a2a2a;
+      height: @28px;
+      overflow: hidden;
+      position: relative;
+      .value {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 99%;
+        position: absolute;
+        animation: moveup 5s infinite;
+      }
+    }
+    .icon-more {
+      display: flex;
+      align-items: center;
+      img {
+        width: @26px;
+        height: @20px;
+        margin-left: @24px;
+      }
+    }
+  }
+  @keyframes moveup {
+    0% {
+      transform: translateY(@28px);
+      opacity: 0.2;
+    }
+    10% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    90% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.2;
+      transform: translateY(-@28px);
+    }
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: all linear .2s;
+  }
+
+  .fade-enter, .fade-leave-to
+    /* .list-leave-active for below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
   }
 </style>

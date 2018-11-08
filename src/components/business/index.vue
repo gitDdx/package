@@ -9,7 +9,9 @@
         v-model="files"
         :action="action"
         @files-added="addedHandler"
-        @file-error="errHandler">
+        @file-error="errHandler"
+        @file-success="successHandler"
+        @file-removed="removeHandler">
         <div class="clear-fix">
           <cube-upload-file v-for="(file, i) in files" :file="file" :key="i"></cube-upload-file>
           <cube-upload-btn :multiple="false">
@@ -26,6 +28,7 @@
   </div>
 </template>
 <script>
+import { toast } from '@/utils/actions'
 export default {
   data () {
     return {
@@ -35,18 +38,28 @@ export default {
     }
   },
   methods: {
-    addedHandler() {
-      // this.uploadIcon = false
-      const file = this.files[0]
+    addedHandler () {  // 过滤图片类型、大小
+      let file = this.files
       file && this.$refs.upload.removeFile(file)
+      this.uploadIcon = false
     },
-    errHandler(file) {
+    errHandler (file) {
+      // toast('error', '图片不能超过10M')
+      // toast('warn', '请上传福利券配图')
+      // toast('success', '提交成功，请等待审核', '5.5rem')
       // const msg = file.response.message
       this.$createToast({
         type: '提示',
         txt: '上传失败',
         time: 1000
       }).show()
+    },
+    removeHandler () {
+      // toast('error', '图片不能超过10M')
+      this.uploadIcon = true
+    },
+    successHandler () {
+
     }
   }
 }

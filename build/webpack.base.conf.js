@@ -42,7 +42,7 @@ const webpackConfig = {
   },
   module: {
     rules: [
-      ...(config.dev.useEslint ? [createLintingRule()] : []),
+      // ...(config.dev.useEslint ? [createLintingRule()] : []), // eslint规则
       {
         test: /\.vue$/,
         loader: 'vue-loader',
