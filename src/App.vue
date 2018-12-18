@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'rdsfdsfsd'
+  name: 'AppVue'
 }
 </script>
 
