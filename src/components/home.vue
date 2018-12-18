@@ -38,6 +38,7 @@ export default {
     }
   },
   created () {
+
     this.$router.replace(`welfare`)
   },
   methods: {

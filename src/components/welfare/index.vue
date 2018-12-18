@@ -8,6 +8,7 @@
         </div>
         <p class="cancel">取消</p>
       </div>
+      <div class="title" v-model="title" v-html="title"></div>
       <div class="scrollCont" style="height:84vh;">
         <cube-scroll
           :data="allLists"
@@ -64,6 +65,8 @@
               </div>
             </div>
           </div>
+          <div @click="shuffle">点我啊</div>
+          <div v-for="item in numList">{{item}}</div>
         </cube-scroll>
       </div>
     </div>
@@ -85,6 +88,7 @@ export default {
   },
   data () {
     return {
+      title: '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈',
       page: {...defData.page},
       noticeList: [
         {id: 1, name: '哈哈哈哈'},
@@ -126,10 +130,15 @@ export default {
           }
         }
       },
-      allLists: []
+      allLists: [],
+      numList: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     }
   },
   created () {
+    console.log(this.title.length)
+    if (this.title && this.title.length > 140) {
+      this.title = this.title.substr(0, 140) + '...<span class="open">展开</span>'
+    }
     this.getData()
   },
   mounted () {},
@@ -160,12 +169,27 @@ export default {
         return false
       }
       this.getData()
+    },
+    shuffle: function () {
+      this.numList = _.shuffle(this.numList)
     }
   }
 }
 </script>
 <style lang="less" scoped>
   @import "../../common/less/base.less";
+  .title{
+    font-size:@24px;
+    width:100%;
+    text-align: left;
+    padding: 10px;
+    box-sizing: border-box;
+    line-height:@35px;
+    /deep/ span.open{
+      padding-left:@5px;
+      color:red;
+    }
+  }
   .search-oc{
     width:100%; padding:@30px; box-sizing: border-box;
     .search{

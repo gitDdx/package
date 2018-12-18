@@ -37,6 +37,12 @@ export default {
       files: []
     }
   },
+  created () {
+    let str = '<iframe frameborder="0" src="https://v.qq.com/txp/iframe/player.html?vid=c07984ct1kl" allowFullScreen="true"></iframe>'
+    let s = str.split('src="')[1]
+    let t = s.split('" allowFullScreen')[0]
+    // console.log(t)
+  },
   methods: {
     addedHandler () {  // 过滤图片类型、大小
       let file = this.files
@@ -59,7 +65,6 @@ export default {
       this.uploadIcon = true
     },
     successHandler () {
-
     }
   }
 }
