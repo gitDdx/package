@@ -12,22 +12,12 @@ export default (method = 'POST', url, query = {}) => { // get方法---params  po
     options.params = query
   }
   return new Promise((resolve,reject)=>{
-    const _instance = axios.create({
+    const _requset = axios.create({
       timeout: 2000
     })
-    _instance(options).then(response=>{
-      // Vue.$vux.toast.show({
-      //   text: response,
-      //   type: 'warn',
-      //   width: '10em'
-      // })
+    _requset(options).then(response=>{
       resolve(response.data);
     }).catch(err=>{
-      // Vue.$vux.toast.show({
-      //   text: err.code,
-      //   type: 'warn',
-      //   width: '10em'
-      // })
       reject(err);
     })
   })

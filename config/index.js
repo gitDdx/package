@@ -13,20 +13,18 @@ module.exports = {
     assetsPublicPath: '/',
     // 接口跨域调试
     proxyTable: {
-      '/test': {
-          // 测试环境
-          target: 'http://localhost:8080',  // 接口域名
-          // changeOrigin: true,  //是否跨域
-          pathRewrite: {
-            '^/test': ''   //需要rewrite重写的,
-          }
+      '/fwh/': {
+        target: 'http://192.168.1.221:8080',
+        // target: 'http://localhost:8080',
+        pathRewrite: {
+          '^/fwh/': ''
+        }
       }
     },
-
     // Various Dev Server settings
     // host: 'localhost', // can be overwritten by process.env.HOST
     host: ip, // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 8022, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,

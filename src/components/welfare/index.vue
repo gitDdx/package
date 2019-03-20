@@ -8,7 +8,6 @@
         </div>
         <p class="cancel">取消</p>
       </div>
-      <div class="title" v-model="title" v-html="title"></div>
       <div class="scrollCont" style="height:84vh;">
         <cube-scroll
           :data="allLists"
@@ -26,16 +25,23 @@
             </swiper>
           </div>
           <!-- 公告 -->
-          <div class="bar-notice">
-            <img class="icon-notice" src="./images/公告.png"/>
-            <div v-fb class="wrapper-value">
-              <div class="value">
-                <p v-for="item of noticeList">{{item.name}}</p>
+          <div class="vueBox">
+            <div class="marquee">
+              <div class="marquee_title">
+                <span>最新战报</span>
               </div>
-            </div>
-            <div v-fb class="icon-more">
-              <i class="line"></i>
-              <img src="./images/更多公告.png"/>
+              <div class="marquee_box">
+                <ul class="marquee_list" :class="{marquee_top:animate}">
+                  <li v-for="(item, index) in marqueeList">
+                    <span>{{item.name}}</span>
+                    <span>在</span>
+                    <span class="red"> {{item.city}}</span>
+                    <span>杀敌</span>
+                    <span class="red"> {{item.amount}}</span>
+                    <span>万</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <!--列表-->
@@ -65,8 +71,6 @@
               </div>
             </div>
           </div>
-          <div @click="shuffle">点我啊</div>
-          <div v-for="item in numList">{{item}}</div>
         </cube-scroll>
       </div>
     </div>
@@ -88,13 +92,29 @@ export default {
   },
   data () {
     return {
-      title: '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈',
       page: {...defData.page},
-      noticeList: [
-        {id: 1, name: '哈哈哈哈'},
-        {id: 2, name: '嘿嘿嘿嘿'},
-        {id: 3, name: '嘻嘻嘻嘻'},
-        {id: 4, name: '呵呵呵呵'}
+      animate: false,
+      marqueeList: [
+        {
+          name: '1军',
+          city: '北京',
+          amount: '10'
+        },
+        {
+          name: '2军',
+          city: '上海',
+          amount: '20'
+        },
+        {
+          name: '3军',
+          city: '广州',
+          amount: '30'
+        },
+        {
+          name: '4军',
+          city: '重庆',
+          amount: '40'
+        }
       ],
       list: [
         {name: '1', url: 'http://java.ichuangye.cn/ueditor-upload/upload/image/20180914/3c42627aea554bd58d08c18e043bf94d.jpg'},
@@ -130,19 +150,31 @@ export default {
           }
         }
       },
-      allLists: [],
-      numList: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+      allLists: []
     }
   },
   created () {
-    console.log(this.title.length)
-    if (this.title && this.title.length > 140) {
-      this.title = this.title.substr(0, 140) + '...<span class="open">展开</span>'
+    // 公告
+    setInterval(this.showMarquee, 2000)
+    let a = [{id: 1},{id: 2},{id: 3}]
+    let b = [{id: 1},{id: 2}]
+    let c = a.concat(b)
+    function unique(arr) {
+      const res = new Map();
+      return arr.filter((a) => !res.has(a) && res.set(a, 1))
     }
-    this.getData()
+    console.log(unique(c))
+    // this.getData()
   },
   mounted () {},
   methods: {
+    showMarquee: function () {
+      this.animate = true
+      setTimeout(()=>{
+        this.marqueeList.push(this.marqueeList[0])
+        this.marqueeList.shift()
+        this.animate = false
+      },500)},
     // 获取数据
     getData () {
       getListApi(this.page).then((data) => {
@@ -169,27 +201,12 @@ export default {
         return false
       }
       this.getData()
-    },
-    shuffle: function () {
-      this.numList = _.shuffle(this.numList)
     }
   }
 }
 </script>
 <style lang="less" scoped>
   @import "../../common/less/base.less";
-  .title{
-    font-size:@24px;
-    width:100%;
-    text-align: left;
-    padding: 10px;
-    box-sizing: border-box;
-    line-height:@35px;
-    /deep/ span.open{
-      padding-left:@5px;
-      color:red;
-    }
-  }
   .search-oc{
     width:100%; padding:@30px; box-sizing: border-box;
     .search{
@@ -338,71 +355,49 @@ export default {
     }
   }
    /*公告*/
-  .bar-notice {
-    box-sizing: border-box;
-    padding-bottom: @30px;
-    padding-top: @30px;
-    border-bottom: 1px dashed #eeeeee;
-    display: flex;
-    justify-content: center;
+  .marquee {
+    width: 100%;
     align-items: center;
-    .icon-notice {
-      width: @28px;
-      height: @23px;
-      margin-right: @27px;
-    }
-    .wrapper-value {
-      width: calc(~"100% - " @125px);
-      font-size: @28px;
-      color: #2a2a2a;
-      height: @28px;
-      overflow: hidden;
-      position: relative;
-      .value {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 99%;
-        position: absolute;
-        animation: moveup 5s infinite;
-      }
-    }
-    .icon-more {
-      display: flex;
-      align-items: center;
-      img {
-        width: @26px;
-        height: @20px;
-        margin-left: @24px;
-      }
-    }
+    color: #3A3A3A;
+    background-color: #b3effe;
+    display: flex;
+    box-sizing: border-box;
   }
-  @keyframes moveup {
-    0% {
-      transform: translateY(@28px);
-      opacity: 0.2;
-    }
-    10% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    90% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.2;
-      transform: translateY(-@28px);
-    }
+  .marquee_title {
+    padding: 0 20px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    border-right: 1px solid #d8d8d8;
+    align-items: center;
   }
-
-  .fade-enter-active, .fade-leave-active {
-    transition: all linear .2s;
+  .marquee_box {
+    display: block;
+    position: relative;
+    width: 60%;
+    height: 30px;
+    overflow: hidden;
   }
-
-  .fade-enter, .fade-leave-to
-    /* .list-leave-active for below version 2.1.8 */ {
-    opacity: 0;
-    transform: translateY(30px);
+  .marquee_list {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .marquee_top {
+    transition: all 0.5s;
+    margin-top: -30px
+  }
+  .marquee_list li {
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    padding-left: 20px;
+  }
+  .marquee_list li span {
+    padding: 0 2px;
+  }
+  .red {
+    color: #FF0101;
   }
 </style>

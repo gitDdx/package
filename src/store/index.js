@@ -1,13 +1,13 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import go from './modules/state'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
-  state: {},
+  state: {
+    count: 0
+  },
   actions: {},
-  mutations: {},
-  modules: {
-    go
-  }
+  mutations: {
+  },
+  modules: {}
 })
