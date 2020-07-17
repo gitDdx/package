@@ -8,7 +8,7 @@
         </div>
         <p class="cancel">取消</p>
       </div>
-      <div class="title" v-model="title" v-html="title"></div>
+      <div class="title" v-html="title"></div>
       <div class="scrollCont" style="height:84vh;">
         <cube-scroll
           :data="allLists"
@@ -30,7 +30,7 @@
             <img class="icon-notice" src="./images/公告.png"/>
             <div v-fb class="wrapper-value">
               <div class="value">
-                <p v-for="item of noticeList">{{item.name}}</p>
+                <p v-for="(item, index) of noticeList" :key="index">{{item.name}}</p>
               </div>
             </div>
             <div v-fb class="icon-more">
@@ -65,8 +65,6 @@
               </div>
             </div>
           </div>
-          <div @click="shuffle">点我啊</div>
-          <div v-for="item in numList">{{item}}</div>
         </cube-scroll>
       </div>
     </div>
@@ -130,18 +128,15 @@ export default {
           }
         }
       },
-      allLists: [],
-      numList: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+      allLists: []
     }
   },
-  created () {
-    console.log(this.title.length)
+  mounted () {
     if (this.title && this.title.length > 140) {
       this.title = this.title.substr(0, 140) + '...<span class="open">展开</span>'
     }
     this.getData()
   },
-  mounted () {},
   methods: {
     // 获取数据
     getData () {
@@ -169,9 +164,6 @@ export default {
         return false
       }
       this.getData()
-    },
-    shuffle: function () {
-      this.numList = _.shuffle(this.numList)
     }
   }
 }
